@@ -1,0 +1,6 @@
+---
+- hosts: all
+  gather_facts: False
+  tasks:
+    - name: install Python 2
+      raw: test -e /usr/bin/python || (apt-get update && apt-get install -y python)
