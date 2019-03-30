@@ -1,10 +1,11 @@
 ---
 - hosts: all
-  gather_facts: False
+  gather_facts: no
   tasks:
     - name: install Python 2
       raw: test -e /usr/bin/python || (apt-get update && apt-get install -y python)
-    # TODO: propper reporting
+      register: py2installation
+      changed_when: py2installation.stdout != ""
 
     # TODO: extract to external file (this will be used by 2 playbooks)
     - set_fact:
