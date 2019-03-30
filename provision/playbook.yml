@@ -1,13 +1,33 @@
 ---
 - hosts: all
   tasks:
-    - name: insert ssh keys
-      authorized_key:
-        user: root
-        exclusive: no
-        key: "{{ lookup('file', item) }}"
-        with_items:
-            - '~/.ssh/id_rsa.pub'
+    - name: set saner SSH configuration security defaults
+      lineinfile:
+        dest: /etc/ssh/sshd_config
+        regexp: "{{ item.regexp }}"
+        line: "{{ item.line }}"
+        state: present
+      loop:
+        - regexp: "^PasswordAuthentication"
+          line: "PasswordAuthentication no"
+        - regexp: "^PermitRootLogin"
+          line: "PermitRootLogin no"
+        - regexp: "^PermitEmptyPasswords"
+          line: "PermitEmptyPasswords no"
+        - regexp: "^X11Forwarding"
+          line: "X11Forwarding no"
+        #- regexp: "^Port"
+        #  line: "Port {{ security_ssh_port }}"
+        #- regexp: "^UseDNS"
+        #  line: "UseDNS {{ security_ssh_usedns }}"
+        #- regexp: "^ChallengeResponseAuthentication"
+        #  line: "ChallengeResponseAuthentication {{ security_ssh_challenge_response_auth }}"
+        #- regexp: "^GSSAPIAuthentication"
+        #  line: "GSSAPIAuthentication {{ security_ssh_gss_api_authentication }}"
+      notify: restart ssh
+      become: yes
 
-    # TODO: Block ssh auth by password
+  handlers:
+    - name: restart ssh
+      service: name=ssh state=reloaded
 
