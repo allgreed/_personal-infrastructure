@@ -1,8 +1,8 @@
 .DEFAULT_GOAL := help
 
-bootstrap:
+bootstrap: ## run initial configuration (once per new machine)
 	ansible-playbook --inventory=inventory --ask-pass provision/bootstrap.yml --user=root
-provision:
+provision: ## apply latest configuration
 	ansible-playbook -i inventory provision/playbook.yml
 
 #galaxy_roles: requirements.yml
