@@ -15,11 +15,14 @@
                 ssh_public_key_location: "~/.ssh/kot.pub"
 
     # TODO: convert this to a parametrized block - is this possible with ansible?
+    # TODO: There has to be initial password, but have no idea what should it be - maybe use ansible Vault? + change manually?
     - name: add users
       user:
         user: "{{ item }}"
         shell: /bin/bash
         update_password: on_create
+        append: yes
+        groups: sudo
       loop: "{{ users | dict2items | map(attribute='key') | list }}"
 
     - name: insert ssh keys
@@ -29,6 +32,5 @@
         key: "{{ lookup('file', item.value.ssh_public_key_location) }}"
       loop: "{{ users | dict2items }}"
 
-    # TODO: Add to sudoers
     # TODO: Block ssh auth by password
-    # TODO: Remove password from root (no one can log as root externally)
+    # TODO: Lock root account (no one can log as root without sudo)
