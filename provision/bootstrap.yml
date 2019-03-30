@@ -33,5 +33,7 @@
         key: "{{ lookup('file', item.value.ssh_public_key_location) }}"
       loop: "{{ users | dict2items }}"
 
-    # TODO: Block ssh auth by password
-    # TODO: Lock root account (no one can log as root without sudo)
+    - name: lock root account
+      user:
+        user: root
+        password_lock: yes

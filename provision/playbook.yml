@@ -8,3 +8,6 @@
         key: "{{ lookup('file', item) }}"
         with_items:
             - '~/.ssh/id_rsa.pub'
+
+    # TODO: Block ssh auth by password
+
