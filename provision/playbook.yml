@@ -40,6 +40,25 @@
       vars:
         docker_users: "{{ users | dict2items | map(attribute='key') | list }}"
         docker_package_state: latest
+
+    - name: install python pip
+      package: name=python-pip state=latest
+      become: yes
+
+    - name: install python setuptools
+      pip:
+        name:
+          - setuptools
+        state: latest
+      become: yes
+
+    - name: install docker-py
+      pip:
+        name:
+          - docker
+        state: latest
+      become: yes
+
   handlers:
     - name: restart ssh
       service: name=ssh state=reloaded
