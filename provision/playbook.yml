@@ -59,7 +59,18 @@
         state: latest
       become: yes
 
+    - name: setup node_exporter
+      docker_container:
+        name: node_exporter
+        network_mode: host
+        pid_mode: host
+        volumes:
+          - /:/host:ro,rslave
+        command: --path.rootfs /host
+        image: quay.io/prometheus/node-exporter:v0.17.0
+
   handlers:
     - name: restart ssh
       service: name=ssh state=reloaded
+      become: yes
 
