@@ -3,11 +3,15 @@
 .PHONY: bootstrap provision
 bootstrap: ## run initial configuration (once per new machine)
 	ansible-playbook --inventory=inventory --ask-pass provision/bootstrap.yml --user=root
-provision: ## apply latest configuration
+provision: provision/galaxy_roles ## apply latest configuration
 	ansible-playbook --inventory=inventory --ask-become-pass provision/playbook.yml
 
-#galaxy_roles: requirements.yml
-#	ansible-galaxy install -r requirements.yml --roles-path galaxy_roles
+provision/galaxy_roles: provision/requirements.yml
+	ansible-galaxy install -r provision/requirements.yml --roles-path provision/galaxy_roles
+
+.PHONY: clean
+clean:
+	rm provision/*.retry
 
 .PHONY: help
 help: ## print this message

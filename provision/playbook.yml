@@ -1,6 +1,10 @@
 ---
 - hosts: all
   tasks:
+    - include_vars:
+        file: users.yml
+        name: users
+
     - name: set saner SSH configuration security defaults
       lineinfile:
         dest: /etc/ssh/sshd_config
@@ -27,6 +31,15 @@
       notify: restart ssh
       become: yes
 
+    - name: install Docker
+      include_role:
+        name: geerlingguy.docker
+        apply:
+          become:
+            yes
+      vars:
+        docker_users: "{{ users | dict2items | map(attribute='key') | list }}"
+        docker_package_state: latest
   handlers:
     - name: restart ssh
       service: name=ssh state=reloaded
