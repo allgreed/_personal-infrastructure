@@ -22,12 +22,12 @@
           line: "X11Forwarding no"
         #- regexp: "^Port"
         #  line: "Port {{ security_ssh_port }}"
-        #- regexp: "^UseDNS"
-        #  line: "UseDNS {{ security_ssh_usedns }}"
-        #- regexp: "^ChallengeResponseAuthentication"
-        #  line: "ChallengeResponseAuthentication {{ security_ssh_challenge_response_auth }}"
-        #- regexp: "^GSSAPIAuthentication"
-        #  line: "GSSAPIAuthentication {{ security_ssh_gss_api_authentication }}"
+        - regexp: "^UseDNS"
+          line: "UseDNS no"
+        - regexp: "^ChallengeResponseAuthentication"
+          line: "ChallengeResponseAuthentication no"
+        - regexp: "^GSSAPIAuthentication"
+          line: "GSSAPIAuthentication no"
       notify: restart ssh
       become: yes
 
