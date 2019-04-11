@@ -69,6 +69,17 @@
         command: --path.rootfs /host
         image: quay.io/prometheus/node-exporter:v0.17.0
 
+    - name: setup the lounge
+      docker_container:
+        name: thelounge
+        published_ports:
+          - 9000:9000
+        volumes:
+          - ~/.thelounge:/var/opt/thelounge
+        image: thelounge/thelounge:latest
+
+      #docker exec --user node -it thelounge thelounge add [username]
+
   handlers:
     - name: restart ssh
       service: name=ssh state=reloaded
