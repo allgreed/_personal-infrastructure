@@ -59,16 +59,6 @@
         state: latest
       become: yes
 
-    - name: setup node_exporter
-      docker_container:
-        name: node_exporter
-        network_mode: host
-        pid_mode: host
-        volumes:
-          - /:/host:ro,rslave
-        command: --path.rootfs /host
-        image: quay.io/prometheus/node-exporter:v0.17.0
-
     - name: setup the lounge
       docker_container:
         name: thelounge
@@ -79,6 +69,13 @@
         image: thelounge/thelounge:latest
 
       #docker exec --user node -it thelounge thelounge add [username]
+
+    - name: install Docker
+      include_role:
+        name: allgreed.nomad
+        apply:
+          become:
+            yes
 
   handlers:
     - name: restart ssh
