@@ -10,6 +10,9 @@ job "the_longue" {
       config {
         # TODO: How to manage versions - can I get this from consul maybe and rerun the job on changes :D ???
         image = "thelounge/thelounge:3.0.1"
+        port_map = {
+            http = 9000
+        }
         network_mode = "host"
         volumes = [
             "/home/allgreed/.thelounge:/var/opt/thelounge",
@@ -19,6 +22,12 @@ job "the_longue" {
       resources {
         cpu    = 500
         memory = 100
+
+        network {
+            port "http" {
+                static = "9000"
+            }
+        }
       }
     }
   }
