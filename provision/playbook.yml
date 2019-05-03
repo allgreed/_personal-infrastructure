@@ -59,18 +59,9 @@
         state: latest
       become: yes
 
-    - name: setup the lounge
-      docker_container:
-        name: thelounge
-        published_ports:
-          - 9000:9000
-        volumes:
-          - ~/.thelounge:/var/opt/thelounge
-        image: thelounge/thelounge:latest
-
       #docker exec --user node -it thelounge thelounge add [username]
 
-    - name: install Docker
+    - name: install Nomad
       include_role:
         name: allgreed.nomad
         apply:

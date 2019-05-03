@@ -11,6 +11,9 @@
         file: users.yml
         name: users
 
+    - name: install sudo
+      package: state=latest name=sudo
+
     # TODO: There has to be initial password, but have no idea what should it be - maybe use ansible Vault? + change manually? / generate randomly and output to stdout ???
     - name: add users
       user:
