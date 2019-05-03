@@ -1,2 +1,4 @@
 - src: geerlingguy.docker
+  version: 2.5.2
 - src: allgreed.nomad
+  version: v0.2.0
