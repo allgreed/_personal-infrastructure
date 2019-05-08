@@ -68,6 +68,28 @@
           become:
             yes
 
+    - name: create application data directory
+      file:
+        state: directory
+        path: /var/eph/
+      become: yes
+
+    #- name: create application config directory
+    #  file:
+    #    state: directory
+    #    path: /etc/svc/
+    #  become: yes
+    #
+    #- name: copy application configs
+    #  copy:
+    #    src: "{{ item }}"
+    #    dest: /etc/svc/
+    #  loop:
+    #    - nginx
+    #    - prometheus
+    #    - grafana
+    #  become: yes
+
   handlers:
     - name: restart ssh
       service: name=ssh state=reloaded

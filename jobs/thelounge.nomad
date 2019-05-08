@@ -13,9 +13,8 @@ job "the_longue" {
         port_map = {
             http = 9000
         }
-        network_mode = "host"
         volumes = [
-            "/home/allgreed/.thelounge:/var/opt/thelounge",
+            "/var/eph/thelounge:/var/opt/thelounge",
         ]
       }
 
