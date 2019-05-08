@@ -19,7 +19,7 @@ job "proxy" {
         network_mode = "host"
         volumes = [
             "/srv:/usr/share/nginx/html/",
-            "/eph/conf/nginx:/etc/nginx/conf.d/",
+            "/etc/svc/nginx:/etc/nginx/conf.d/",
             "/etc/letsencrypt:/etc/letsencrypt",
         ]
       }

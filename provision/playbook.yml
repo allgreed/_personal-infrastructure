@@ -80,15 +80,11 @@
     #    path: /etc/svc/
     #  become: yes
     #
-    #- name: copy application configs
-    #  copy:
-    #    src: "{{ item }}"
-    #    dest: /etc/svc/
-    #  loop:
-    #    - nginx
-    #    - prometheus
-    #    - grafana
-    #  become: yes
+    - name: copy application configs
+      copy:
+        src: configs/
+        dest: /etc/svc/
+      become: yes
 
   handlers:
     - name: restart ssh
