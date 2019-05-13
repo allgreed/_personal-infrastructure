@@ -29,5 +29,7 @@ job "proxy" {
         memory = 100
       }
     }
+
   }
 }
+

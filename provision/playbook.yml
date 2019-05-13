@@ -74,12 +74,6 @@
         path: /var/eph/
       become: yes
 
-    #- name: create application config directory
-    #  file:
-    #    state: directory
-    #    path: /etc/svc/
-    #  become: yes
-    #
     - name: copy application configs
       copy:
         src: configs/
