@@ -1,5 +1,5 @@
 ---
 allgreed:
-    ssh_public_key_location: "~/.ssh/id_rsa.pub"
+    ssh_public_key_location: "~/.ssh/id_rsa_4096.pub"
 verisa:
     ssh_public_key_location: "~/.ssh/kot.pub"

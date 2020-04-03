@@ -20,7 +20,7 @@ job "the_longue" {
 
       resources {
         cpu    = 500
-        memory = 100
+        memory = 200
 
         network {
             port "http" {
