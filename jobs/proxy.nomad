@@ -25,7 +25,7 @@ job "proxy" {
       }
 
       resources {
-        cpu    = 500
+        cpu    = 200
         memory = 100
       }
     }
